@@ -16,7 +16,7 @@
 import pathlib
 from typing import Any
 
-from aws_cdk import Duration
+from aws_cdk import Duration, Size
 from aws_cdk import RemovalPolicy
 from aws_cdk import Stack
 from aws_cdk import aws_eks as eks
@@ -93,7 +93,7 @@ class PodMetaDataExtractor(Construct):
                 str(pathlib.Path(__file__).parent.joinpath("runtime").resolve())
             ),
             handler="get_pods.lambda_handler",
-            timeout=Duration.minutes(1),
+            timeout=Duration.minutes(2),
             environment={
                 "REGION": Stack.of(self).region,
                 "CLUSTER_NAME": eks_cluster.cluster_name,
@@ -103,6 +103,8 @@ class PodMetaDataExtractor(Construct):
             },
             layers=python_lambda_layers,
             tracing=lambda_.Tracing.ACTIVE,
+            memory_size=512,
+            ephemeral_storage_size=Size.mebibytes(1024)
         )
         return lambda_function
 
