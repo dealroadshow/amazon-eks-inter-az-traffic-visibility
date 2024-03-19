@@ -104,7 +104,7 @@ class PodMetaDataExtractor(Construct):
             layers=python_lambda_layers,
             tracing=lambda_.Tracing.ACTIVE,
             memory_size=512,
-            ephemeral_storage_size=Size.mebibytes(1024)
+            ephemeral_storage_size=Size.mebibytes(1512)
         )
         return lambda_function
 
