@@ -144,7 +144,7 @@ def get_pods_info(nodes_azs: dict[str, str]) -> dict[str, str]:
         info = {
             "name": pod.metadata.name,
             "ip": pod.status.pod_ip,
-            "app": pod.metadata.labels.get("app", "<none>") + "_" + pod.metadata.labels.get("component", "<none>") + "_" + pod.metadata.labels.get("tenant", "<none>"),
+            "app": pod.metadata.labels.get("app", "<none>") + "_" + pod.metadata.labels.get("component", "<none>") + "_" + pod.metadata.labels.get("tenant", ""),
             "creation_time": pod_creation_time,
             "node": pod.spec.node_name,
             "az": nodes_azs.get(pod.spec.node_name, "<none>"),
